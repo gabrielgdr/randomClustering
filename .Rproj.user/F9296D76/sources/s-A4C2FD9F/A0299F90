@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1538012152151.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A0299F90",
+    "lastKnownWriteTime" : 1538488483,
+    "last_content_update" : 1538488483,
+    "path" : "C:/Users/Gabriel DR/Dropbox/gabriel_rodrigues/randomClustering/R/main.R",
+    "project_path" : "R/main.R",
+    "properties" : {
+        "cursorPosition" : "42,0",
+        "scrollLine" : "36"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

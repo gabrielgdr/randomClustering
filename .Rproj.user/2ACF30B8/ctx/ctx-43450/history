@@ -1,0 +1,512 @@
+tdataset= select20_unimahalanobis(dataset)
+}
+if(trans=="UM50"){
+tdataset= select50_unimahalanobis(dataset)
+}
+if(trans=="UM80"){
+tdataset= select80_unimahalanobis(dataset)
+}
+##ROTACAO E NATURAL
+if(trans=="R"){
+tdataset= rotacao(dataset)
+}
+if(trans=="N"){
+tdataset= dataset
+}
+## Densidade
+if(trans=="DA"){
+tdataset= tadensidade(dataset,K)
+}
+if(trans=="DR"){
+tdataset= trdensidade(dataset,K)
+}
+dists = dist(tdataset)
+if(algorithm=="kmeans"){
+a <- NULL
+th <- 0
+while(is.null(a) || th>10 ){
+try(a <- kmeans(tdataset, iter.max=40, centers=K, nstart=1)$cluster)
+th = th+1
+}
+result_partition = organizavetor(a)
+partitionings[j,] = result_partition
+}
+if(th>10){
+cat("\n threshold exceeded \n")
+}
+else {
+j=j+1
+}
+}
+dataset
+modelo
+classes=modelo
+head(dataset)
+classes
+trans
+algorithm
+iteracoes
+K
+K=length(unique(classes))
+K
+require(mclust)
+require(cluster)
+require(clValid)
+'%ni%' <- Negate('%in%')
+N = nrow(dataset)
+K=length(unique(classes))
+partitionings = matrix(0, iteracoes, N)
+j=1
+while(j<=iteracoes){
+##MAHA NORMAL
+if(trans=="RM100"){
+tdataset= mahalanobis(rotacao(dataset))
+}
+if(trans=="RM20"){
+tdataset= select20_mahalanobis(rotacao(dataset))
+}
+if(trans=="RM50"){
+tdataset= select50_mahalanobis(rotacao(dataset))
+}
+if(trans=="RM80"){
+tdataset= select80_mahalanobis(rotacao(dataset))
+}
+##MAHA ROTACAO NORMAL
+if(trans=="M100"){
+tdataset= mahalanobis(dataset)
+}
+if(trans=="M20"){
+tdataset= select20_mahalanobis(dataset)
+}
+if(trans=="M50"){
+tdataset= select50_mahalanobis(dataset)
+}
+if(trans=="M80"){
+tdataset= select80_mahalanobis(dataset)
+}
+##MAHA UNIFORME
+if(trans=="RUM100"){
+tdataset= uniform_mahalanobis(rotacao(dataset))
+}
+if(trans=="RUM20"){
+tdataset= select20_unimahalanobis(rotacao(dataset))
+}
+if(trans=="RUM50"){
+tdataset= select50_unimahalanobis(rotacao(dataset))
+}
+if(trans=="RUM80"){
+tdataset= select80_unimahalanobis(rotacao(dataset))
+}
+if(trans=="UM100"){
+tdataset= uniform_mahalanobis(dataset)
+}
+if(trans=="UM20"){
+tdataset= select20_unimahalanobis(dataset)
+}
+if(trans=="UM50"){
+tdataset= select50_unimahalanobis(dataset)
+}
+if(trans=="UM80"){
+tdataset= select80_unimahalanobis(dataset)
+}
+##ROTACAO E NATURAL
+if(trans=="R"){
+tdataset= rotacao(dataset)
+}
+if(trans=="N"){
+tdataset= dataset
+}
+## Densidade
+if(trans=="DA"){
+tdataset= tadensidade(dataset,K)
+}
+if(trans=="DR"){
+tdataset= trdensidade(dataset,K)
+}
+dists = dist(tdataset)
+if(algorithm=="kmeans"){
+a <- NULL
+th <- 0
+while(is.null(a) || th>10 ){
+try(a <- kmeans(tdataset, iter.max=40, centers=K, nstart=1)$cluster)
+th = th+1
+}
+result_partition = organizavetor(a)
+partitionings[j,] = result_partition
+}
+if(th>10){
+cat("\n threshold exceeded \n")
+}
+else {
+j=j+1
+}
+}
+ari = rep(0,iteracoes)
+slh = rep(0,iteracoes)
+dun = rep(0,iteracoes)
+partitionings
+library(randomClustering)
+j
+dists = dist(tdataset)
+if(algorithm=="kmeans"){
+a <- NULL
+th <- 0
+while(is.null(a) || th>10 ){
+try(a <- kmeans(tdataset, iter.max=40, centers=K, nstart=1)$cluster)
+th = th+1
+}
+result_partition = organizavetor(a)
+partitionings[j,] = result_partition
+}
+partitionings
+ari = rep(0,iteracoes)
+slh = rep(0,iteracoes)
+dun = rep(0,iteracoes)
+accuracy = 1-signif(avaliacao(partitionings, classes, K)/N, digits = 3)
+for(i in 1:iteracoes){
+ari[i] = signif(adjustedRandIndex(partitionings[i,],classes), digits = 3)
+if(length(unique(partitionings[i,]))>1)
+slh[i] = signif(mean(silhouette(partitionings[i,], dists)[,3]), digits = 3)
+else
+slh[i] = 0
+if(length(unique(partitionings[i,]))==1)
+dun[i] = 0
+else{
+dun[i] = signif(dunn(dists,partitionings[i,]), digits = 3)
+if(dun[i]==Inf)
+dun[i] = 1
+}
+}
+avg_results <- data.frame("algorithm"=rep(algorithm,4),
+"measure"=c("accuracy","ari","dunn","slh"),
+"value"=c(accuracy,mean(ari),mean(dunn),mean(slh)))
+mean(dun)
+library(randomClustering)
+run_clustering(dataset,classes,"N","kmeans",2)
+run_clustering(dataset,classes,"N","kmeans",1)
+run_clustering(dataset,classes,"N","kmeans",2)
+data.frame(algorithm = rep(algorithm, 4), measure = c("accuracy",
+"ari", "dunn", "slh"), value = c(accuracy, mean(ari), mean(dun),
+mean(slh)))
+run_clustering(dataset,classes,"N","kmeans",2)
+run_clustering(dataset,classes,"N","kmeans",2)
+rep(algorithm, 4)
+measure = c("accuracy",
+"ari", "dunn", "slh")
+library(randomClustering)
+run_clustering(dataset,classes,"N","kmeans",1)
+run_clustering(dataset,classes,"N","kmeans",3)
+run_clustering(dataset,classes,"N","kmeans",5)
+run_clustering(dataset,classes,"N","kmeans",5)
+x<-run_clustering(dataset,classes,"N","kmeans",5)
+x
+x<-run_clustering(dataset,classes,"N","kmeans",1)
+x
+x<-run_clustering(dataset,classes,"N","kmeans",2);x
+x<-run_clustering(dataset,classes,"N","kmeans",4);x
+x<-run_clustering(dataset,classes,"N","kmeans",5);x
+require(mclust)
+require(cluster)
+require(clValid)
+'%ni%' <- Negate('%in%')
+N = nrow(dataset)
+K=length(unique(classes))
+partitionings = matrix(0, iteracoes, N)
+j=1
+while(j<=iteracoes){
+##MAHA NORMAL
+if(trans=="RM100"){
+tdataset= mahalanobis(rotacao(dataset))
+}
+if(trans=="RM20"){
+tdataset= select20_mahalanobis(rotacao(dataset))
+}
+if(trans=="RM50"){
+tdataset= select50_mahalanobis(rotacao(dataset))
+}
+if(trans=="RM80"){
+tdataset= select80_mahalanobis(rotacao(dataset))
+}
+##MAHA ROTACAO NORMAL
+if(trans=="M100"){
+tdataset= mahalanobis(dataset)
+}
+if(trans=="M20"){
+tdataset= select20_mahalanobis(dataset)
+}
+if(trans=="M50"){
+tdataset= select50_mahalanobis(dataset)
+}
+if(trans=="M80"){
+tdataset= select80_mahalanobis(dataset)
+}
+##MAHA UNIFORME
+if(trans=="RUM100"){
+tdataset= uniform_mahalanobis(rotacao(dataset))
+}
+if(trans=="RUM20"){
+tdataset= select20_unimahalanobis(rotacao(dataset))
+}
+if(trans=="RUM50"){
+tdataset= select50_unimahalanobis(rotacao(dataset))
+}
+if(trans=="RUM80"){
+tdataset= select80_unimahalanobis(rotacao(dataset))
+}
+if(trans=="UM100"){
+tdataset= uniform_mahalanobis(dataset)
+}
+if(trans=="UM20"){
+tdataset= select20_unimahalanobis(dataset)
+}
+if(trans=="UM50"){
+tdataset= select50_unimahalanobis(dataset)
+}
+if(trans=="UM80"){
+tdataset= select80_unimahalanobis(dataset)
+}
+##ROTACAO E NATURAL
+if(trans=="R"){
+tdataset= rotacao(dataset)
+}
+if(trans=="N"){
+tdataset= dataset
+}
+## Densidade
+if(trans=="DA"){
+tdataset= tadensidade(dataset,K)
+}
+if(trans=="DR"){
+tdataset= trdensidade(dataset,K)
+}
+dists = dist(tdataset)
+if(algorithm=="kmeans"){
+a <- NULL
+th <- 0
+while(is.null(a) || th>10 ){
+try(a <- kmeans(tdataset, iter.max=40, centers=K, nstart=1)$cluster)
+th = th+1
+}
+result_partition = organizavetor(a)
+partitionings[j,] = result_partition
+}
+if(th>10){
+cat("\n threshold exceeded \n")
+}
+else {
+j=j+1
+}
+}
+ari = rep(0,iteracoes)
+slh = rep(0,iteracoes)
+dun = rep(0,iteracoes)
+accuracy = 1-signif(avaliacao(partitionings, classes, K)/N, digits = 3)
+for(i in 1:iteracoes){
+ari[i] = signif(adjustedRandIndex(partitionings[i,],classes), digits = 3)
+if(length(unique(partitionings[i,]))>1)
+slh[i] = signif(mean(silhouette(partitionings[i,], dists)[,3]), digits = 3)
+else
+slh[i] = 0
+if(length(unique(partitionings[i,]))==1)
+dun[i] = 0
+else{
+dun[i] = signif(dunn(dists,partitionings[i,]), digits = 3)
+if(dun[i]==Inf)
+dun[i] = 1
+}
+}
+rep(algorithm,4)
+c("accuracy","ari","dunn","slh")
+c(accuracy,mean(ari),mean(dun),mean(slh))
+avg_results
+mean(dun)
+dun
+ari
+slh
+c(accuracy,mean(ari),mean(dun),mean(slh))
+avg_results <- NULL
+avg_results <- data.frame("algorithm"=rep(algorithm,4),
+"measure"=c("accuracy","ari","dunn","slh"),
+"value"=c(accuracy,mean(ari),mean(dun),mean(slh)))
+avg_results
+library(randomClustering)
+run_clustering(dataset,classes,"N","kmeans",5)
+run_clustering(dataset,classes,"N","kmeans",2)
+iteracoes=2
+require(mclust)
+require(cluster)
+require(clValid)
+'%ni%' <- Negate('%in%')
+N = nrow(dataset)
+K=length(unique(classes))
+partitionings = matrix(0, iteracoes, N)
+j=1
+while(j<=iteracoes){
+##MAHA NORMAL
+if(trans=="RM100"){
+tdataset= mahalanobis(rotacao(dataset))
+}
+if(trans=="RM20"){
+tdataset= select20_mahalanobis(rotacao(dataset))
+}
+if(trans=="RM50"){
+tdataset= select50_mahalanobis(rotacao(dataset))
+}
+if(trans=="RM80"){
+tdataset= select80_mahalanobis(rotacao(dataset))
+}
+##MAHA ROTACAO NORMAL
+if(trans=="M100"){
+tdataset= mahalanobis(dataset)
+}
+if(trans=="M20"){
+tdataset= select20_mahalanobis(dataset)
+}
+if(trans=="M50"){
+tdataset= select50_mahalanobis(dataset)
+}
+if(trans=="M80"){
+tdataset= select80_mahalanobis(dataset)
+}
+##MAHA UNIFORME
+if(trans=="RUM100"){
+tdataset= uniform_mahalanobis(rotacao(dataset))
+}
+if(trans=="RUM20"){
+tdataset= select20_unimahalanobis(rotacao(dataset))
+}
+if(trans=="RUM50"){
+tdataset= select50_unimahalanobis(rotacao(dataset))
+}
+if(trans=="RUM80"){
+tdataset= select80_unimahalanobis(rotacao(dataset))
+}
+if(trans=="UM100"){
+tdataset= uniform_mahalanobis(dataset)
+}
+if(trans=="UM20"){
+tdataset= select20_unimahalanobis(dataset)
+}
+if(trans=="UM50"){
+tdataset= select50_unimahalanobis(dataset)
+}
+if(trans=="UM80"){
+tdataset= select80_unimahalanobis(dataset)
+}
+##ROTACAO E NATURAL
+if(trans=="R"){
+tdataset= rotacao(dataset)
+}
+if(trans=="N"){
+tdataset= dataset
+}
+## Densidade
+if(trans=="DA"){
+tdataset= tadensidade(dataset,K)
+}
+if(trans=="DR"){
+tdataset= trdensidade(dataset,K)
+}
+dists = dist(tdataset)
+if(algorithm=="kmeans"){
+a <- NULL
+th <- 0
+while(is.null(a) || th>10 ){
+try(a <- kmeans(tdataset, iter.max=40, centers=K, nstart=1)$cluster)
+th = th+1
+}
+result_partition = organizavetor(a)
+partitionings[j,] = result_partition
+}
+if(th>10){
+cat("\n threshold exceeded \n")
+}
+else {
+j=j+1
+}
+}
+ari = rep(0,iteracoes)
+slh = rep(0,iteracoes)
+dun = rep(0,iteracoes)
+accuracy = 1-signif(avaliacao(partitionings, classes, K)/N, digits = 3)
+for(i in 1:iteracoes){
+ari[i] = signif(adjustedRandIndex(partitionings[i,],classes), digits = 3)
+if(length(unique(partitionings[i,]))>1)
+slh[i] = signif(mean(silhouette(partitionings[i,], dists)[,3]), digits = 3)
+else
+slh[i] = 0
+if(length(unique(partitionings[i,]))==1)
+dun[i] = 0
+else{
+dun[i] = signif(dunn(dists,partitionings[i,]), digits = 3)
+if(dun[i]==Inf)
+dun[i] = 1
+}
+}
+dun
+slh
+accuracy
+library(randomClustering)
+run_clustering(dataset,classes,"N","kmeans",2)
+run_clustering(dataset,classes,"N","kmeans",3)
+run_clustering(dataset,classes,"N","kmeans",4)
+result<-data.frame()
+result
+rbind(result,result)
+library(randomClustering)
+dataset=as.matrix(iris[,1:4])
+classes = c(rep(1,50),rep(2,50), rep(3,50))
+for (i in 1:N) {
+norma = sqrt(sum(dataset[i,]**2))
+dataset[i,] = dataset[i,]/norma
+}
+library(randomClustering)
+randomclust(dataset)
+library(randomClustering)
+library(randomClustering,transformations="N")
+library(randomClustering,transformations="N")
+library(randomClustering)
+randomclust(randomClustering,transformations="N")
+randomclust(dataset,transformations="N")
+randomclust(dataset,transformations="N",...)
+randomclust(dataset,transformations="N")
+randomclust(dataset,transformations="N",iterations=1)
+library(randomClustering)
+randomclust(dataset,transformations="N",iterations=1)
+randomclust(dataset,transformations="N",iterations=1)
+iterations
+ls()
+library(randomClustering)
+randomclust(dataset,transformations="N")
+randomclust(dataset,transformations="N",iterations=1)
+library(randomClustering)
+randomclust(dataset,transformations="N",iterations=1)
+randomclust(dataset,transformations="N")
+randomclust(dataset,transformations="N",iterations=1)
+randomclust(dataset,transformations="N")
+randomclust(dataset,transformations="N",iter = 1)
+randomclust(dataset,transformations="N",iter = 1)
+library(randomClustering)
+randomclust(dataset,transformations="N")
+library(randomClustering)
+randomclust(dataset,transformations="N")
+algorithms=="all"
+algorithms="all"
+algorithms
+algortithms <- c("hclust","kmeans","bclust","hkclustering","dbscan")
+algorithms
+library(randomClustering)
+randomclust(dataset,transformations="N")
+result_aux <- run_clustering(dataset,classes,transformations,algorithm = "kmeans",iter)
+result_aux <- run_clustering(dataset,classes,transformations,algorithm = "kmeans",iter=1)
+result_aux <- run_clustering(dataset,classes,"N",algorithm = "kmeans",iter=1)
+result_aux
+result
+result <- rbind(result,result_aux)
+result
+result_aux <- run_clustering(dataset,classes,"N",algorithm = "kmea",iter=1)
+result_aux
+result <- rbind(result,result_aux)
+result
+library(randomClustering)
+randomclust(dataset,transformations="N")
