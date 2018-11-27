@@ -18,25 +18,30 @@ ola <- function() {
 }
 
 
-randomclust <- function(dataset, classes, k=1,iter=1,transformations="all", algorithms="all") {
+randomclust <- function(dataset, classes=NULL, K=1,iterations=1,transformations=c("all"), algorithms=c("all")) {
 
-  if(algorithms=="all")
-    algorithms <- c("hclust","kmeans","bclust","cba")
-  if(transformations=="all")
-    transformations = c("N","RM100","RM20","RM50","RM80","M100","M20","M50","M80","RUM100","RUM20","RUM50","RUM80","UM100","UM20","UM50","UM80","R","DA","DR")
+  dataset = as.matrix(dataset)
+  if(algorithms[1]=="all")
+    algorithms <- c("hclust","kmeans","bclust","cba","hkclustering","dbscan")
+  if(transformations[1]=="all"){
+      if(ncol(dataset)<8)
+        transformations = c("N100","RM100","M100","RUM100","UM100","R100","DA","DR")
+      else
+        transformations = c("N100","N80","N50","N20","RM100","RM20","RM50","RM80","M100","M20","M50","M80","RUM100","RUM20","RUM50","RUM80","UM100","UM20","UM50","UM80","R100","R80","R50","R20","DA","DR")
+  }
   result_partial<-data.frame()
   for(i in 1:length(algorithms)){
     for(j in 1:length(transformations)){
-      result_partial_aux <- run_clustering(dataset,classes,transformations[j],algorithm = algorithms[i],iter)
+      result_partial_aux <- run_clustering(dataset,classes,transformations[j],algorithm = algorithms[i],iterations,K)
       result_partial <- rbind(result_partial,result_partial_aux)
     }
   }
 
-  result_partial=normalizeValues(result_partial)
+  result_partial=normalizeValues(result_partial,classes)
 
-  result<-matrix(-1,length(transformations),length(algorithms))
+  result<-matrix(-1,length(transformations),length(algorithms)+1)
   rownames(result)=transformations
-  colnames(result)=algorithms
+  colnames(result)=c(algorithms,"s")
   for(i in 1:length(transformations)){
     for(j in 1:length(algorithms)){
       x1<-transformations[i]
@@ -45,7 +50,9 @@ randomclust <- function(dataset, classes, k=1,iter=1,transformations="all", algo
              colnames(result)==x2]=
         sum(subset(result_partial,transformation==x1 & algorithm==x2)[,4])
     }
+    result[i,length(algorithms)+1]=sum(result[i,1:length(algorithms)])
   }
+
 
 
   return(result)

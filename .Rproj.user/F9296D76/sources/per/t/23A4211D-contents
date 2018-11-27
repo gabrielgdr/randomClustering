@@ -1,5 +1,5 @@
 
-run_clustering <- function(dataset, classes, transformations, algorithm, iter=1){
+run_clustering <- function(dataset, classes, transformations, algorithm, iter,K){
 
   library(mclust)
   library(cluster)
@@ -8,7 +8,9 @@ run_clustering <- function(dataset, classes, transformations, algorithm, iter=1)
   library(cba)
 	'%ni%' <- Negate('%in%')
   N = nrow(dataset)
-  K=length(unique(classes))
+  if(is.null(classes)==FALSE){
+    K=length(unique(classes))
+  }
 	partitionings = matrix(0, iter, N)
 
   j=1
@@ -151,10 +153,13 @@ run_clustering <- function(dataset, classes, transformations, algorithm, iter=1)
   slh = rep(0,iter)
   dun = rep(0,iter)
 
-  accuracy = 1-signif(avaliacao(partitionings, classes, K)/N, digits = 3)
-  for(i in 1:iter){
+  if(is.null(classes)==FALSE)
+    accuracy = 1-signif(avaliacao(partitionings, classes, K)/N, digits = 3)
 
-    ari[i] = signif(adjustedRandIndex(partitionings[i,],classes), digits = 3)
+  for(i in 1:iter){
+    if(is.null(classes)==FALSE)
+      ari[i] = signif(adjustedRandIndex(partitionings[i,],classes), digits = 3)
+
 		if(length(unique(partitionings[i,]))>1)
 			slh[i] = signif(mean(silhouette(partitionings[i,], dists)[,3]), digits = 3)
 		else
@@ -168,11 +173,19 @@ run_clustering <- function(dataset, classes, transformations, algorithm, iter=1)
 		}
   }
 
+  if(is.null(classes)==FALSE){
+    measures = c("accuracy","ari","dunn","slh")
+    values = c(mean(accuracy),mean(ari),mean(dun),mean(slh))
+  }
+  else{
+    measures = c("dunn","slh")
+    values = c(mean(dun),mean(slh))
+  }
   avg_results <- NULL
-	avg_results <- data.frame("algorithm"=rep(algorithm,4),
-	                          "measure"=c("accuracy","ari","dunn","slh"),
-	                          "transformation"=rep(transformations,4),
-	                          "value"=c(mean(accuracy),mean(ari),mean(dun),mean(slh)))
+	avg_results <- data.frame("algorithm"=rep(algorithm,length(measures)),
+	                          "measure"=measures,
+	                          "transformation"=rep(transformations,length(measures)),
+	                          "value"=values)
 
 	return(avg_results)
 

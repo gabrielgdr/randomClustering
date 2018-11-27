@@ -109,12 +109,15 @@ heat <- function(data){
 
   library(gplots)
   library(RColorBrewer)
-
-  data$soma <- NULL
-  data[,2:ncol(data)]<-log(data[,2:ncol(data)])
-  rnames <- data[,1]
-  mat_data <- data.matrix(data[,2:ncol(data)])
-  rownames(mat_data) <- rnames
+  data=data[,1:ncol(data)-1]
+  s<-rep(0,nrow(data))
+  for(i in 1:nrow(data))
+    s[i]=sum(data[i,2:ncol(data)])
+  data<-cbind(data,s)
+  data<-data[order(data[,ncol(data)]),]
+  data=data[,1:ncol(data)-1]
+  mat_data <- data.matrix(data)
+  rownames(mat_data) <- rownames(data)
 
   mat_data <- mat_data[,names(sort(apply(mat_data, 2, sum)))]
 
@@ -142,11 +145,13 @@ heat <- function(data){
   )            # turn off column clustering
 }
 
-normalizeValues <- function(df){
-  val = subset(df,df$measure=="ari")[,4]
-  rn = row.names(subset(df,df$measure=="ari"))
-  nval = (val-min(val))/(max(val)-min(val))
-  df[rn,4]=nval
+normalizeValues <- function(df,classes){
+  if(is.null(classes)==FALSE){
+    val = subset(df,df$measure=="ari")[,4]
+    rn = row.names(subset(df,df$measure=="ari"))
+    nval = (val-min(val))/(max(val)-min(val))
+    df[rn,4]=nval
+  }
 
   val = subset(df,df$measure=="dunn")[,4]
   rn = row.names(subset(df,df$measure=="dunn"))

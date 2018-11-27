@@ -107,9 +107,9 @@ organizavetor <- function(v){
 
 heat <- function(data){
 
-  library(gplots)
-  library(RColorBrewer)
-
+  suppressMessages(library(gplots))
+  suppressMessages(library(RColorBrewer))
+  data=data[,1:ncol(data)-1]
   s<-rep(0,nrow(data))
   for(i in 1:nrow(data))
     s[i]=sum(data[i,2:ncol(data)])
@@ -145,11 +145,13 @@ heat <- function(data){
   )            # turn off column clustering
 }
 
-normalizeValues <- function(df){
-  val = subset(df,df$measure=="ari")[,4]
-  rn = row.names(subset(df,df$measure=="ari"))
-  nval = (val-min(val))/(max(val)-min(val))
-  df[rn,4]=nval
+normalizeValues <- function(df,classes){
+  if(is.null(classes)==FALSE){
+    val = subset(df,df$measure=="ari")[,4]
+    rn = row.names(subset(df,df$measure=="ari"))
+    nval = (val-min(val))/(max(val)-min(val))
+    df[rn,4]=nval
+  }
 
   val = subset(df,df$measure=="dunn")[,4]
   rn = row.names(subset(df,df$measure=="dunn"))
@@ -163,3 +165,97 @@ normalizeValues <- function(df){
 
   return(df)
 }
+
+transformdata<-function(transformation){
+  ##MAHA NORMAL
+  if(transformation=="RM100"){
+    tdataset= mahalanobis(rotacao(dataset))
+  return(tdataset)}
+  if(transformation=="RM20"){
+    tdataset= select20_mahalanobis(rotacao(dataset))
+  return(tdataset)}
+  if(transformation=="RM50"){
+    tdataset= select50_mahalanobis(rotacao(dataset))
+  return(tdataset)}
+  if(transformation=="RM80"){
+    tdataset= select80_mahalanobis(rotacao(dataset))
+  return(tdataset)}
+  ##MAHA ROTACAO NORMAL
+  if(transformation=="M100"){
+    tdataset= mahalanobis(dataset)
+  return(tdataset)}
+  if(transformation=="M20"){
+    tdataset= select20_mahalanobis(dataset)
+  return(tdataset)}
+  if(transformation=="M50"){
+    tdataset= select50_mahalanobis(dataset)
+  return(tdataset)}
+  if(transformation=="M80"){
+    tdataset= select80_mahalanobis(dataset)
+  return(tdataset)}
+
+  ##MAHA UNIFORME
+  if(transformation=="RUM100"){
+    tdataset= uniform_mahalanobis(rotacao(dataset))
+  return(tdataset)}
+  if(transformation=="RUM20"){
+    tdataset= select20_unimahalanobis(rotacao(dataset))
+
+  return(tdataset)}
+  if(transformation=="RUM50"){
+    tdataset= select50_unimahalanobis(rotacao(dataset))
+  return(tdataset)}
+  if(transformation=="RUM80"){
+    tdataset= select80_unimahalanobis(rotacao(dataset))
+  return(tdataset)}
+
+  if(transformation=="UM100"){
+    tdataset= uniform_mahalanobis(dataset)
+  return(tdataset)}
+  if(transformation=="UM20"){
+    tdataset= select20_unimahalanobis(dataset)
+  return(tdataset)}
+  if(transformation=="UM50"){
+    tdataset= select50_unimahalanobis(dataset)
+  return(tdataset)}
+  if(transformation=="UM80"){
+    tdataset= select80_unimahalanobis(dataset)
+  return(tdataset)}
+
+  ##ROTACAO
+  if(transformation=="R100"){
+    tdataset= rotacao(dataset)
+  return(tdataset)}
+  if(transformation=="R20"){
+    tdataset= rotacao(dataset)
+  return(tdataset)}
+  if(transformation=="R50"){
+    tdataset= rotacao(dataset)
+  return(tdataset)}
+  if(transformation=="R80"){
+    tdataset= rotacao(dataset)
+  return(tdataset)}
+
+  ##NATURAL
+  if(transformation=="N100"){
+    tdataset= dataset
+  return(tdataset)}
+  if(transformation=="N20"){
+    tdataset= natural20(dataset)
+  return(tdataset)}
+  if(transformation=="N50"){
+    tdataset= natural50(dataset)
+  return(tdataset)}
+  if(transformation=="N80"){
+    tdataset= natural80(dataset)
+  return(tdataset)}
+
+  ## Densidade
+  if(transformation=="DA"){
+    tdataset= tadensidade(dataset,K)
+  return(tdataset)}
+  if(transformation=="DR"){
+    tdataset= trdensidade(dataset,K)
+  return(tdataset)}
+}
+
