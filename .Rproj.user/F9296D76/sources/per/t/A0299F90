@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1538012152151.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2969348592",
+    "id" : "A0299F90",
+    "lastKnownWriteTime" : 1543236533,
+    "last_content_update" : 1543236533,
+    "path" : "C:/Users/Gabriel DR/Desktop/Nova pasta/R/main.R",
+    "project_path" : "R/main.R",
+    "properties" : {
+        "cursorPosition" : "35,32",
+        "scrollLine" : "20"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

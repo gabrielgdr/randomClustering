@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1538486435954.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2026257425",
+    "id" : "377B5AE3",
+    "lastKnownWriteTime" : 1543236817,
+    "last_content_update" : 1543236817511,
+    "path" : "C:/Users/gabrielrs/Dropbox/gabriel_rodrigues/randomClustering/R/codes.r",
+    "project_path" : "R/codes.r",
+    "properties" : {
+        "cursorPosition" : "104,1",
+        "scrollLine" : "96"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

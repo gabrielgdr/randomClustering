@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1538012309202.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3550207674",
+    "id" : "23A4211D",
+    "lastKnownWriteTime" : 1539611752,
+    "last_content_update" : 1540216039384,
+    "path" : "C:/Users/Gabriel DR/Desktop/Nova pasta/R/experimentos.r",
+    "project_path" : "R/experimentos.r",
+    "properties" : {
+        "cursorPosition" : "180,4",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

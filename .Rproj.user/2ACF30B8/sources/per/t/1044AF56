@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1538481976016.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4161591517",
+    "id" : "1044AF56",
+    "lastKnownWriteTime" : 1543236801,
+    "last_content_update" : 1543236801709,
+    "path" : "C:/Users/gabrielrs/Dropbox/gabriel_rodrigues/randomClustering/R/experimentos.r",
+    "project_path" : "R/experimentos.r",
+    "properties" : {
+        "cursorPosition" : "7,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
