@@ -16,7 +16,7 @@ run_clustering <- function(dataset, classes, transformations, algorithm, iter,K)
   j=1
 	while(j<=iter){
 
-		tdataset<-transformdata(transformations)
+		tdataset<-transformdata(transformations,dataset)
 
 		dists = dist(tdataset)
 
