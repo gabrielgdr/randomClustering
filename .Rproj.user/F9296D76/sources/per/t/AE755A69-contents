@@ -166,7 +166,7 @@ normalizeValues <- function(df,classes){
   return(df)
 }
 
-transformdata<-function(transformation, dataset){
+transformdata<-function(transformation, dataset,K){
   ##MAHA NORMAL
   if(transformation=="RM100"){
     tdataset= mahalanobis(rotacao(dataset))

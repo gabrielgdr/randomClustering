@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3630623055",
+    "hash" : "3324913497",
     "id" : "AE755A69",
-    "lastKnownWriteTime" : 1544638000,
-    "last_content_update" : 1544638000,
+    "lastKnownWriteTime" : 1544655282,
+    "last_content_update" : 1544655282163,
     "path" : "C:/Users/Gabriel DR/Dropbox/gabriel_rodrigues/randomClustering/R/codes.r",
     "project_path" : "R/codes.r",
     "properties" : {
-        "cursorPosition" : "111,28",
-        "scrollLine" : "0"
+        "cursorPosition" : "165,12",
+        "scrollLine" : "162"
     },
     "relative_order" : 3,
     "source_on_save" : false,
