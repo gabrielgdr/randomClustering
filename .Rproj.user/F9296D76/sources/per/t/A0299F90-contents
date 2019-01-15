@@ -22,7 +22,7 @@ randomclust <- function(dataset, classes=NULL, K=1,iterations=1,transformations=
 
   dataset = as.matrix(dataset)
   if(algorithms[1]=="all")
-    algorithms <- c("hclust","kmeans","bclust","cba","hkclustering","dbscan")
+    algorithms <- c("hclust","kmeans","bclust","cba","hkclustering","dbscan","hdbscan")
   if(transformations[1]=="all"){
       if(ncol(dataset)<8)
         transformations = c("N100","RM100","M100","RUM100","UM100","R100","DA","DR")

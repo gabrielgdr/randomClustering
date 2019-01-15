@@ -103,6 +103,20 @@ run_clustering <- function(dataset, classes, transformations, algorithm, iter,K)
 		  }
 		}
 
+		if(algorithm=="hdbscan"){
+		  suppressMessages(library(dbscan))
+		  suppressMessages(library(SiZer))
+		  a <- NULL
+		  th <- 0
+		  while(is.null(a)){
+		    minpts = ncol(tdataset)+1
+		    try(a <- hdbscan(tdataset,minPts=minpts)$cluster)
+		    result_partition = organizavetor(a)
+
+		    partitionings[j,] = result_partition
+		  }
+		}
+
 		if(th>10){
 			cat("\n threshold exceeded \n")
 		}

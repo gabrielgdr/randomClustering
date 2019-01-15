@@ -1,3 +1,7 @@
+x
+colnames(x)
+x[,colnames(x)=="cba"]
+x[,colnames(x)==algortithms[1]]
 x[rownames(x)==transformations[1],colnames(x)==algortithms[1]]=1
 x
 library(randomClustering)
@@ -506,7 +510,3 @@ library(randomClustering)
 data <- randomclust(dataset=iris[,1:4],K=3)
 Q
 library(randomClustering)
-library(randomClustering)
-data <- randomclust(dataset=iris[,1:4],K=3)
-heat(daat)
-heat(data)
